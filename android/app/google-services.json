@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314748609549",
+    "project_id": "kedis-13193",
+    "storage_bucket": "kedis-13193.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314748609549:android:cd4c3395afec091f432144",
+        "android_client_info": {
+          "package_name": "com.example.kedis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG72CvScFYxNtYj8SLI_m96Whb_5va_hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
