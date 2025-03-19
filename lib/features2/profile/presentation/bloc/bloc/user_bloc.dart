@@ -6,15 +6,7 @@ import 'package:kedis/features2/profile/domain/usecases/get_user_usecase.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
-// class UserBloc extends Bloc<UserEvent, UserState> {
-//   UserBloc() : super(UserInitial()) {
-//     on<UserEvent>((event, emit) {
-//       // TODO: implement event handler
-//     });
-//   }
-// }
-
-
+// BLoC для управления состоянием пользователя
 class UserBloc extends Bloc<UserEvent, UserState> {
   final GetUserUseCase getUserUseCase;
 
@@ -31,4 +23,5 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserErrorState(e.toString()));
     }
   }
+
 }

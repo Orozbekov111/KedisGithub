@@ -4,9 +4,9 @@ import 'package:kedis/features2/profile/domain/entities/user_entity.dart';
 import 'package:kedis/features2/profile/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final FirebaseUserDataSource dataSource;
+  final FirebaseUserDataSource dataSource; // Параметр dataSource
 
-  UserRepositoryImpl(this.dataSource);
+  UserRepositoryImpl({required this.dataSource}); // Конструктор с именованным параметром
 
   @override
   Future<UserEntity> getUser(String userId) async {

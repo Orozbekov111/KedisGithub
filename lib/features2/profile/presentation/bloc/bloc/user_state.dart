@@ -26,3 +26,5 @@ class UserErrorState extends UserState {
   @override
   List<Object?> get props => [message];
 }
+
+class UserUnauthenticated extends UserState {}

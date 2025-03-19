@@ -1,5 +1,5 @@
-import 'package:kedis/features2/auth/domain/repositories/auth_repository.dart';
 import 'package:kedis/features2/auth/domain/entities/user_entity.dart';
+import 'package:kedis/features2/auth/domain/repositories/auth_repository.dart';
 
 class LoginUseCase {
   final AuthRepository repository;

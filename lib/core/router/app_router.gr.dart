@@ -116,7 +116,7 @@ class ProfileRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return  _i6.ProfileScreen(userId: '',);
+      return  _i6.ProfileScreen(userId: 'EeHMDEeFMBhiGbiA4N4vZJd6tc72',);
     },
   );
 }

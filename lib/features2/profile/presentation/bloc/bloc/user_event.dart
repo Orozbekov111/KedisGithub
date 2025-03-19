@@ -13,3 +13,6 @@ class LoadUserEvent extends UserEvent {
   @override
   List<Object?> get props => [userId];
 }
+class LogoutEvent extends UserEvent {}
+
+class CheckUserEvent extends UserEvent {}
