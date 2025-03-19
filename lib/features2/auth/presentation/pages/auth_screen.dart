@@ -1,4 +1,5 @@
 // lib/features/auth/presentation/screens/login_screen.dart
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:kedis/features2/auth/presentation/bloc/auth_event.dart';
 import 'package:kedis/features2/auth/presentation/bloc/auth_state.dart';
 import 'package:kedis/features2/home/presentation/pages/home_screen.dart';
 
+@RoutePage()
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -34,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => HomeScreen(user: state.user),
+                builder: (context) => HomeScreens(),
               ),
             );
           } else if (state is AuthLoading) {

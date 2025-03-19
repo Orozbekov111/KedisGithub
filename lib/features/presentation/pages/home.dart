@@ -16,7 +16,7 @@ List<Widget> screens = [
   ScheduleScreen(),
   MenuScreen(),
   GradesScreen(),
-  // ProfileScreen(),
+  ProfileScreen(),
 ];
 
 class Home extends StatefulWidget {

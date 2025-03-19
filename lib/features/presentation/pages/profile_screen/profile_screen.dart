@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kedis/features2/auth/domain/entities/user_entity.dart';
 import '../../../data/models/user_model.dart';
 import '../../../data/repositories/firebase_user_repository.dart';
 import '../../bloc/authentication/sign_in_bloc/sign_in_bloc.dart';
@@ -12,7 +11,7 @@ import '../widgets/button_widget.dart';
 import 'components/ChangePasswordScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key, required UserEntity user});
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
