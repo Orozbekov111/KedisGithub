@@ -1,8 +1,7 @@
 import 'package:kedis/features2/profile/domain/entities/user_entity.dart';
 
-// Абстракция репозитория для работы с данными пользователя
 abstract class UserRepository {
   Future<UserEntity> getUser(String userId);
-  Future<void> updateUser(UserEntity user);
-  Future<void> createUser(UserEntity user);
+  Future<void> signOut();
+  Future<void> changePassword(String newPassword, String currentPassword);
 }

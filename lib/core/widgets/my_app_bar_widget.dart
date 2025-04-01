@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-
 class MyAppBarWidget extends StatelessWidget {
-  final nameAppBar;
+  final String nameAppBar;
+  final IconButton? icon;
 
   const MyAppBarWidget({
+    this.icon,
     required this.nameAppBar,
     super.key,
   });
@@ -13,27 +14,32 @@ class MyAppBarWidget extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFF00796B), Color(0xFF004D40)], // Градиентный фон
+          colors: [Color(0xFF00796B), Color(0xFF004D40)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30.0)), // Закругленные углы
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30.0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black26, // Цвет тени
-            blurRadius: 10.0, // Размытие тени
-            offset: Offset(0, 4), // Смещение тени
+            color: Colors.black26,
+            blurRadius: 10.0,
+            offset: Offset(0, 4),
           ),
         ],
       ),
-      child: AppBar(          
+      child: AppBar(
+        actions: icon != null ? [icon!] : null,
         title: Text(
           nameAppBar,
-          style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent, // Делаем фон прозрачным для градиента
-        elevation: 0, // Убираем стандартную тень
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
     );
   }

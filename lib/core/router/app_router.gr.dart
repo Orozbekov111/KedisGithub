@@ -16,9 +16,9 @@ import 'package:kedis/features2/evalution/presentation/pages/evalution_screen.da
     as _i1;
 import 'package:kedis/features2/home/presentation/pages/home_screen.dart'
     as _i2;
-import 'package:kedis/features2/home/presentation/pages/main_screen.dart'
+import 'package:kedis/features2/main_screen.dart'
     as _i4;
-import 'package:kedis/features2/menu/presentation/pages/menu_screen.dart'
+import 'package:kedis/features2/menu/menu_screen.dart'
     as _i5;
 import 'package:kedis/features2/profile/presentation/pages/profile_screen.dart'
     as _i6;
@@ -116,7 +116,7 @@ class ProfileRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return  _i6.ProfileScreen(userId: 'EeHMDEeFMBhiGbiA4N4vZJd6tc72',);
+      return _i6.ProfileScreen();
     },
   );
 }

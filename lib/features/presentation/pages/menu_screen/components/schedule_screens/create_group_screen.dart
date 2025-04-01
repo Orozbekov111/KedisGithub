@@ -44,7 +44,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: Column( 
           children: [
             MyTextField(
               controller: _groupNameController,

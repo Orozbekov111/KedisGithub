@@ -73,6 +73,7 @@ dependencies:
   iconly: ^1.0.1
   auto_route: ^10.0.1
   auto_route_generator: ^10.0.1
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

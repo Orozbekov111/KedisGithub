@@ -5,7 +5,6 @@ import 'package:kedis/core/router/app_router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-    
     AutoRoute(page: LoginRoute.page, path: '/login'),
     AutoRoute(
       page: MainRoute.page,

@@ -18,13 +18,17 @@ class UserLoadedState extends UserState {
   List<Object?> get props => [user];
 }
 
-class UserErrorState extends UserState {
+
+
+class UserSignedOutState extends UserState {}
+
+
+class UserPasswordChangedState extends UserState {
   final String message;
-
-  UserErrorState(this.message);
-
-  @override
-  List<Object?> get props => [message];
+  UserPasswordChangedState({required this.message});
 }
 
-class UserUnauthenticated extends UserState {}
+class UserErrorState extends UserState {
+  final String message;
+  UserErrorState(this.message);
+}

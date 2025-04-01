@@ -8,11 +8,23 @@ abstract class UserEvent extends Equatable {
 class LoadUserEvent extends UserEvent {
   final String userId;
 
-  LoadUserEvent(this.userId);
+  LoadUserEvent({required this.userId});
 
   @override
   List<Object?> get props => [userId];
 }
-class LogoutEvent extends UserEvent {}
 
-class CheckUserEvent extends UserEvent {}
+class SignOutEvent extends UserEvent {}
+
+class ChangePasswordEvent extends UserEvent {
+  final String currentPassword;
+  final String newPassword;
+
+  ChangePasswordEvent({
+    required this.currentPassword,
+    required this.newPassword,
+  });
+
+  @override
+  List<Object?> get props => [currentPassword, newPassword];
+}

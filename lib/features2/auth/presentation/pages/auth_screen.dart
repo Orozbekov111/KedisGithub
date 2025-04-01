@@ -8,7 +8,7 @@ import 'package:kedis/core/widgets/my_textfield_widget.dart';
 import 'package:kedis/features2/auth/presentation/bloc/auth_bloc.dart';
 import 'package:kedis/features2/auth/presentation/bloc/auth_event.dart';
 import 'package:kedis/features2/auth/presentation/bloc/auth_state.dart';
-import 'package:kedis/features2/home/presentation/pages/main_screen.dart';
+import 'package:kedis/features2/main_screen.dart';
 
 @RoutePage()
 class LoginScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:kedis/features2/profile/domain/entities/user_entity.dart';
 class UserModel {
   final String email;
   final String password;
@@ -47,19 +47,20 @@ class UserModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'email': email,
-      'password': password,
-      'fullName': fullName,
-      'emailUser': emailUser,
-      'group': group,
-      'profession': profession,
-      'phone': phone,
-      'specialty': specialty,
-      'role': role,
-      'code': code,
-      'picture': picture,
-    };
+  UserEntity toEntity() {
+    return UserEntity(
+      id: id,
+      email: email,
+      password: password,
+      fullName: fullName,
+      emailUser: emailUser,
+      group: group,
+      profession: profession,
+      phone: phone,
+      specialty: specialty,
+      role: role,
+      code: code,
+      picture: picture,
+    );
   }
 }
