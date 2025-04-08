@@ -19,11 +19,12 @@ class AddSchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ScheduleBloc(
-        addSchedule: context.read<AddScheduleUsecase>(),
-        groupId: groupId,
-        dayOfWeek: dayOfWeek,
-      ),
+      create:
+          (context) => CreateScheduleBloc(
+            addSchedule: context.read<AddScheduleUsecase>(),
+            groupId: groupId,
+            dayOfWeek: dayOfWeek,
+          ),
       child: Scaffold(
         appBar: AppBar(title: Text('Schedule for $dayOfWeek')),
         body: const _AddSchedulePageContent(),
@@ -37,7 +38,7 @@ class _AddSchedulePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<ScheduleBloc>().state;
+    final state = context.watch<CreateScheduleBloc>().state;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -45,13 +46,11 @@ class _AddSchedulePageContent extends StatelessWidget {
         children: [
           ScheduleForm(
             onLessonAdded: (lesson) {
-              context.read<ScheduleBloc>().add(AddLessonEvent(lesson));
+              context.read<CreateScheduleBloc>().add(AddLessonEvent(lesson));
             },
           ),
           const SizedBox(height: 20),
-          Expanded(
-            child: LessonList(lessons: state.lessons),
-          ),
+          Expanded(child: LessonList(lessons: state.lessons)),
           SaveScheduleButton(
             groupId: state.groupId,
             dayOfWeek: state.dayOfWeek,

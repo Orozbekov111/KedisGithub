@@ -24,9 +24,11 @@ class MyErrorWidget extends StatelessWidget {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {
-              if (context.read<GroupUsersBloc>().state is GroupUsersErrorState) {
+              if (context.read<GroupUsersBloc>().state
+                  is GroupUsersErrorState) {
                 context.read<GroupUsersBloc>().add(LoadGroupUsersEvent());
-              } else if (context.read<TeachersBloc>().state is TeachersErrorState) {
+              } else if (context.read<TeachersBloc>().state
+                  is TeachersErrorState) {
                 context.read<TeachersBloc>().add(LoadTeachersEvent());
               }
             },
@@ -37,6 +39,3 @@ class MyErrorWidget extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -6,7 +6,7 @@ class GetBestStudentsUsecase {
 
   GetBestStudentsUsecase(this.repository);
 
-  Future<List<UserEntity>> execute() async{
+  Future<List<UserEntity>> execute() async {
     return await repository.getBestStudents();
   }
 }

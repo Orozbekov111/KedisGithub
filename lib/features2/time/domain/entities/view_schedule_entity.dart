@@ -1,46 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:kedis/features2/time/domain/entities/view_lesson_entity.dart';
 
-class Schedule extends Equatable {
+class ViewScheduleEntity {
   final String groupId;
   final String groupName;
-  final Map<String, DaySchedule> days;
+  final Map<String, List<ViewLessonEntity>> dayLessons;
 
-  const Schedule({
+  ViewScheduleEntity({
     required this.groupId,
     required this.groupName,
-    required this.days,
+    required this.dayLessons,
   });
-
-  @override
-  List<Object?> get props => [groupId, groupName, days];
-}
-
-class DaySchedule extends Equatable {
-  final String dayName;
-  final List<Lesson> lessons;
-
-  const DaySchedule({
-    required this.dayName,
-    required this.lessons,
-  });
-
-  @override
-  List<Object?> get props => [dayName, lessons];
-}
-
-class Lesson extends Equatable {
-  final String subject;
-  final String time;
-  final String teacher;
-  final String classroom;
-
-  const Lesson({
-    required this.subject,
-    required this.time,
-    required this.teacher,
-    required this.classroom,
-  });
-
-  @override
-  List<Object?> get props => [subject, time, teacher, classroom];
 }

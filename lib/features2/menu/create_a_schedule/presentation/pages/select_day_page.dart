@@ -11,9 +11,7 @@ class SelectDayPage extends StatelessWidget {
     final daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Select Day'),
-      ),
+      appBar: AppBar(title: const Text('Select Day')),
       body: ListView.builder(
         itemCount: daysOfWeek.length,
         itemBuilder: (context, index) {
@@ -24,10 +22,11 @@ class SelectDayPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddSchedulePage(
-                      groupId: groupId,
-                      dayOfWeek: daysOfWeek[index],
-                    ),
+                    builder:
+                        (context) => AddSchedulePage(
+                          groupId: groupId,
+                          dayOfWeek: daysOfWeek[index],
+                        ),
                   ),
                 );
               },

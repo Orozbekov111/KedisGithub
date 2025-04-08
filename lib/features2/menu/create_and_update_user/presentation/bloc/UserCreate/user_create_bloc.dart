@@ -25,3 +25,4 @@ class UserCreateBloc extends Bloc<UserCreateEvent, UserCreateState> {
     }
   }
 }
+

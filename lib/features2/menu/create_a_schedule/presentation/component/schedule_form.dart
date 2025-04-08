@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kedis/features2/menu/create_a_schedule/domain/entities/lesson_entity.dart';
+import 'package:kedis/features2/menu/create_a_schedule/domain/entities/create_lesson_entity.dart';
 
 class ScheduleForm extends StatefulWidget {
-  final Function(lessonEntity) onLessonAdded;
+  final Function(CreateLessonEntity) onLessonAdded;
 
   const ScheduleForm({Key? key, required this.onLessonAdded}) : super(key: key);
 
@@ -28,7 +28,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      final lesson = lessonEntity(
+      final lesson = CreateLessonEntity(
         subject: _subjectController.text,
         time: _timeController.text,
         teacherName: _teacherController.text,
@@ -53,26 +53,29 @@ class _ScheduleFormState extends State<ScheduleForm> {
           TextFormField(
             controller: _subjectController,
             decoration: const InputDecoration(labelText: 'Subject'),
-            validator: (value) =>
-                value?.isEmpty ?? true ? 'Please enter subject' : null,
+            validator:
+                (value) =>
+                    value?.isEmpty ?? true ? 'Please enter subject' : null,
           ),
           TextFormField(
             controller: _timeController,
             decoration: const InputDecoration(labelText: 'Time'),
-            validator: (value) =>
-                value?.isEmpty ?? true ? 'Please enter time' : null,
+            validator:
+                (value) => value?.isEmpty ?? true ? 'Please enter time' : null,
           ),
           TextFormField(
             controller: _teacherController,
             decoration: const InputDecoration(labelText: 'Teacher'),
-            validator: (value) =>
-                value?.isEmpty ?? true ? 'Please enter teacher' : null,
+            validator:
+                (value) =>
+                    value?.isEmpty ?? true ? 'Please enter teacher' : null,
           ),
           TextFormField(
             controller: _classroomController,
             decoration: const InputDecoration(labelText: 'Classroom'),
-            validator: (value) =>
-                value?.isEmpty ?? true ? 'Please enter classroom' : null,
+            validator:
+                (value) =>
+                    value?.isEmpty ?? true ? 'Please enter classroom' : null,
           ),
           const SizedBox(height: 16),
           ElevatedButton(

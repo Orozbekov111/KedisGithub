@@ -1,10 +1,10 @@
-class lessonEntity {
+class CreateLessonEntity {
   final String subject;
   final String time;
   final String teacherName;
   final String classroom;
 
-  const lessonEntity({
+  const CreateLessonEntity({
     required this.subject,
     required this.time,
     required this.teacherName,
@@ -14,7 +14,7 @@ class lessonEntity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is lessonEntity &&
+      other is CreateLessonEntity &&
           runtimeType == other.runtimeType &&
           subject == other.subject &&
           time == other.time &&

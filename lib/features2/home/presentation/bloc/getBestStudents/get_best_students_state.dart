@@ -1,6 +1,6 @@
 part of 'get_best_students_bloc.dart';
 
-abstract class GetBestStudentsState{}
+abstract class GetBestStudentsState {}
 
 class GetBestStudentsInitialState extends GetBestStudentsState {}
 

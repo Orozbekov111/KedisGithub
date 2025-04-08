@@ -22,7 +22,7 @@ import 'package:kedis/features2/menu/menu_screen.dart'
     as _i5;
 import 'package:kedis/features2/profile/presentation/pages/profile_screen.dart'
     as _i6;
-import 'package:kedis/features2/time/presentation/pages/time_screen.dart'
+import 'package:kedis/features2/time/presentation/pages/schedule_screen.dart'
     as _i7;
 
 /// generated route for
@@ -122,17 +122,17 @@ class ProfileRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.TimeScreen]
-class TimeRoute extends _i8.PageRouteInfo<void> {
-  const TimeRoute({List<_i8.PageRouteInfo>? children})
-    : super(TimeRoute.name, initialChildren: children);
+/// [_i7.ScheduleScreen]
+class ScheduleRoute extends _i8.PageRouteInfo<void> {
+  const ScheduleRoute({List<_i8.PageRouteInfo>? children})
+    : super(ScheduleRoute.name, initialChildren: children);
 
   static const String name = 'TimeRoute';
 
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i7.TimeScreen();
+      return const _i7.ScheduleScreen();
     },
   );
 }

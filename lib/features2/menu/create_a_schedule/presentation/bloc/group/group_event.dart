@@ -1,4 +1,4 @@
-part of 'group_bloc.dart';
+part of 'create_group_bloc.dart';
 
 abstract class GroupEvent extends Equatable {
   const GroupEvent();

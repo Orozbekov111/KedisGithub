@@ -3,8 +3,8 @@ import 'package:kedis/features2/home/domain/repositories/get_users_repository.da
 
 class GetCurrentUserUseCase {
   final GetUsersRepository repository;
-  
+
   GetCurrentUserUseCase(this.repository);
-  
+
   Future<UserEntity> execute() => repository.getCurrentUser();
 }

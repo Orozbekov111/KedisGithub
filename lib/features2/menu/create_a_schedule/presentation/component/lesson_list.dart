@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kedis/features2/menu/create_a_schedule/domain/entities/lesson_entity.dart';
+import 'package:kedis/features2/menu/create_a_schedule/domain/entities/create_lesson_entity.dart';
 
 class LessonList extends StatelessWidget {
-  final List<lessonEntity> lessons;
+  final List<CreateLessonEntity> lessons;
 
   const LessonList({Key? key, required this.lessons}) : super(key: key);
 
@@ -18,7 +18,9 @@ class LessonList extends StatelessWidget {
         final lesson = lessons[index];
         return ListTile(
           title: Text(lesson.subject),
-          subtitle: Text('${lesson.time} - ${lesson.teacherName} (${lesson.classroom})'),
+          subtitle: Text(
+            '${lesson.time} - ${lesson.teacherName} (${lesson.classroom})',
+          ),
         );
       },
     );

@@ -16,19 +16,19 @@ class MenuUserModel extends MenuUserEntity {
     required String code,
     String? picture,
   }) : super(
-          id: id,
-          email: email,
-          password: password,
-          fullName: fullName,
-          emailUser: emailUser,
-          group: group,
-          profession: profession,
-          phone: phone,
-          specialty: specialty,
-          role: role,
-          code: code,
-          picture: picture,
-        );
+         id: id,
+         email: email,
+         password: password,
+         fullName: fullName,
+         emailUser: emailUser,
+         group: group,
+         profession: profession,
+         phone: phone,
+         specialty: specialty,
+         role: role,
+         code: code,
+         picture: picture,
+       );
 
   factory MenuUserModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;

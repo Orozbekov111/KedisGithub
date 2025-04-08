@@ -5,10 +5,12 @@ import 'package:kedis/features2/home/domain/usecases/get_student_expelled_usecas
 part 'get_best_students_event.dart';
 part 'get_best_students_state.dart';
 
-class GetStudentsExpelledBloc extends Bloc<GetStudentsExpelledEvent, GetStudentsExpelledState> {
+class GetStudentsExpelledBloc
+    extends Bloc<GetStudentsExpelledEvent, GetStudentsExpelledState> {
   GetStudentsExpelledUsecase getStudentsExpelledUsecase;
 
-  GetStudentsExpelledBloc({required this.getStudentsExpelledUsecase}) : super(GetStudentsExpelledInitialState()) {
+  GetStudentsExpelledBloc({required this.getStudentsExpelledUsecase})
+    : super(GetStudentsExpelledInitialState()) {
     on<LoadStudentsExpelledEvent>(_onLoadBestStudents);
   }
 
@@ -22,7 +24,9 @@ class GetStudentsExpelledBloc extends Bloc<GetStudentsExpelledEvent, GetStudents
       if (studentExpelled.isEmpty) {
         emit(GetStudentsExpelledEmptyState());
       } else {
-        emit(GetStudentsExpelledLoadedState(studentExpelled.cast<UserEntity>()));
+        emit(
+          GetStudentsExpelledLoadedState(studentExpelled.cast<UserEntity>()),
+        );
       }
     } catch (e) {
       emit(GetStudentsExpelledErrorState(e.toString()));

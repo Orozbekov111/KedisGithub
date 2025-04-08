@@ -15,6 +15,6 @@ class ActiveStudentsEmptyState extends ActiveStudentsState {}
 
 class ActiveStudentsErrorState extends ActiveStudentsState {
   final String message;
-  
+
   ActiveStudentsErrorState(this.message);
 }

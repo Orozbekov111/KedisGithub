@@ -1,20 +1,20 @@
-import 'package:kedis/features2/menu/create_a_schedule/domain/entities/lesson_entity.dart';
+import 'package:kedis/features2/menu/create_a_schedule/domain/entities/create_lesson_entity.dart';
 
-class LessonModel extends lessonEntity {
-  const LessonModel({
+class CreateLessonModel extends CreateLessonEntity {
+  const CreateLessonModel({
     required String subject,
     required String time,
     required String teacherName,
     required String classroom,
   }) : super(
-          subject: subject,
-          time: time,
-          teacherName: teacherName,
-          classroom: classroom,
-        );
+         subject: subject,
+         time: time,
+         teacherName: teacherName,
+         classroom: classroom,
+       );
 
-  factory LessonModel.fromJson(Map<String, dynamic> json) {
-    return LessonModel(
+  factory CreateLessonModel.fromJson(Map<String, dynamic> json) {
+    return CreateLessonModel(
       subject: json['subject'],
       time: json['time'],
       teacherName: json['teacherName'],

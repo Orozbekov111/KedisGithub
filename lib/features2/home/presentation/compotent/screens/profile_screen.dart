@@ -14,7 +14,7 @@ class UserProfileScreen extends StatelessWidget {
         preferredSize: const Size.fromHeight(70.0),
         child: MyAppBarWidget(
           nameAppBar: 'Профиль',
-        ), /////////////////////////////////////////////////////////////////////////////////////////////////
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -51,7 +51,6 @@ class UserProfileScreen extends StatelessWidget {
   }
 }
 
-// Карточка с информацией о пользователе
 class _ProfileInfoCard extends StatelessWidget {
   final UserEntity user;
 
@@ -122,4 +121,3 @@ class _ProfileInfoCard extends StatelessWidget {
     );
   }
 }
-

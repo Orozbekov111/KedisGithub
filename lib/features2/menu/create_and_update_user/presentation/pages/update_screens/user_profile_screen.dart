@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kedis/core/widgets/my_app_bar_widget.dart';
 import 'package:kedis/core/widgets/my_button_widget.dart';
+import 'package:kedis/core/widgets/my_confirmation_dialog_widget.dart';
+import 'package:kedis/core/widgets/my_show_dialog_widget.dart';
 import 'package:kedis/core/widgets/my_textfield_widget.dart';
 import 'package:kedis/features2/menu/create_and_update_user/data/models/menu_user_model.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/entities/menu_user_entity.dart';
@@ -17,6 +19,8 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _emailUserController;
@@ -29,8 +33,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   late TextEditingController _codeController;
   late String _selectedRole;
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   void initState() {
     super.initState();
@@ -41,9 +43,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     _groupController = TextEditingController(text: widget.user.group);
     _professionController = TextEditingController(text: widget.user.profession);
     _specialtyController = TextEditingController(text: widget.user.specialty);
-    _loginController = TextEditingController(
-      text: widget.user.email,
-    ); // Используем email как логин
+    _loginController = TextEditingController(text: widget.user.email);
     _passwordController = TextEditingController(text: widget.user.password);
     _codeController = TextEditingController(text: widget.user.code);
     _selectedRole = widget.user.role;
@@ -68,8 +68,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
-        child: MyAppBarWidget(nameAppBar: '${widget.user.fullName}'),
+        preferredSize: const Size.fromHeight(70.0),
+        child: MyAppBarWidget(nameAppBar: widget.user.fullName),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -80,16 +80,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               CircleAvatar(
                 radius: 50,
                 backgroundColor: Colors.white,
-                backgroundImage:
-                    widget.user.picture?.isNotEmpty == true
-                        ? NetworkImage(widget.user.picture!)
-                        : null,
-                child:
-                    widget.user.picture?.isEmpty ?? true
-                        ? Text(
-                          widget.user.fullName.substring(0, 1).toUpperCase(),
-                        )
-                        : null,
+                backgroundImage: widget.user.picture?.isNotEmpty == true
+                    ? NetworkImage(widget.user.picture!)
+                    : null,
+                child: widget.user.picture?.isEmpty ?? true
+                    ? Text(widget.user.fullName.substring(0, 1).toUpperCase())
+                    : null,
               ),
               const SizedBox(height: 20),
 
@@ -182,7 +178,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ],
                 ),
                 child: DropdownButtonFormField<String>(
-                  value: 'student', // Значение по умолчанию
+                  value: 'student', 
                   items:
                       [
                             'active',
@@ -217,62 +213,61 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
               const SizedBox(height: 16),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 0.2,
-                      blurRadius: 2,
-                      offset: Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: DropdownButtonFormField<String>(
-                  value: _selectedRole,
-                  items:
-                      ['user', 'admin', 'teacher']
-                          .map(
-                            (role) => DropdownMenuItem(
-                              value: role,
-                              child: Text(
-                                role == 'admin'
-                                    ? 'Администратор'
-                                    : role == 'teacher'
-                                    ? 'Преподаватель'
-                                    : 'Студент',
-                              ),
-                            ),
-                          )
-                          .toList(),
-                  onChanged: (val) {
-                    setState(() {
-                      _selectedRole = val ?? 'user';
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Роль пользователя',
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 14),
+  padding: const EdgeInsets.symmetric(horizontal: 12),
+  decoration: BoxDecoration(
+    color: Colors.grey.shade200,
+    borderRadius: BorderRadius.circular(10),
+    boxShadow: const [
+      BoxShadow(
+        color: Colors.grey,
+        spreadRadius: 0.2,
+        blurRadius: 2,
+        offset: Offset(0, 1),
+      ),
+    ],
+  ),
+  child: DropdownButtonFormField<String>(
+    value: ['user', 'admin', 'teacher'].contains(widget.user.role) 
+        ? widget.user.role 
+        : 'user', // Значение по умолчанию, если роль не совпадает
+    items: ['user', 'admin', 'teacher'].map((role) {
+      return DropdownMenuItem<String>(
+        value: role,
+        child: Text(
+          role == 'admin'
+              ? 'Администратор'
+              : role == 'teacher'
+                  ? 'Преподаватель'
+                  : 'Студент',
+        ),
+      );
+    }).toList(),
+    onChanged: (String? newValue) {
+      setState(() {
+        _selectedRole = newValue ?? 'user';
+      });
+    },
+    decoration: const InputDecoration(
+      labelText: 'Роль пользователя',
+      border: InputBorder.none,
+    ),
+  ),
+),
 
+              const SizedBox(height: 16),
+              
+             
                   MyButtonWidget(
-                      text: 'Сохранить',
-                      pressed: _saveChanges,
-                    ),
-                  
-                  const SizedBox(width: 16),
-                   MyButtonWidget(
-                      text: 'Удалить',
-                      pressed: _confirmDelete,
-                    ),
-                  const SizedBox(height: 100),
+                    text: 'Сохранить',
+                    pressed: _saveChanges,
+                  ),
+                  MyButtonWidget(
+                    text: 'Удалить',
+                    pressed: _confirmDelete,
+                  ),
                 
               
+              const SizedBox(height: 100),
             ],
           ),
         ),
@@ -280,57 +275,57 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-  void _saveChanges() {
-    if (_formKey.currentState!.validate()) {
-      final updatedUser = MenuUserModel(
-        id: widget.user.id,
-        email: _emailController.text,
-        password: _passwordController.text,
-        fullName: _nameController.text,
-        emailUser: _emailUserController.text,
-        group: _groupController.text,
-        profession: _professionController.text,
-        phone: _phoneController.text,
-        specialty: _specialtyController.text,
-        role: _selectedRole,
-        code: _codeController.text,
-        picture: widget.user.picture,
-      );
+  void _saveChanges() async {
+  if (_formKey.currentState!.validate()) {
+    final updatedUser = MenuUserModel(
+      id: widget.user.id,
+      email: _emailController.text,
+      password: _passwordController.text,
+      fullName: _nameController.text,
+      emailUser: _emailUserController.text,
+      group: _groupController.text,
+      profession: _professionController.text,
+      phone: _phoneController.text,
+      specialty: _specialtyController.text,
+      role: _selectedRole,
+      code: _codeController.text,
+      picture: widget.user.picture,
+    );
 
+    try {
       context.read<UserManagementBloc>().add(UpdateUserEvent(updatedUser));
-      Navigator.pop(context);
+      
+      await MyShowDialogWidget(
+        context,
+        title: 'Успех',
+        content: 'Данные пользователя успешно обновлены',
+        isSuccess: true,
+      );
+      
+      if (mounted) Navigator.pop(context);
+    } catch (e) {
+      await MyShowDialogWidget(
+        context,
+        title: 'Ошибка',
+        content: 'Не удалось обновить данные пользователя: ${e.toString()}',
+        isSuccess: false,
+      );
     }
   }
+}
 
   void _confirmDelete() {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Подтверждение'),
-            content: const Text(
-              'Вы уверены, что хотите удалить этого пользователя?',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Отмена'),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.read<UserManagementBloc>().add(
-                    DeleteUserEvent(widget.user.id),
-                  );
-                  Navigator.pop(context); // Закрыть диалог
-                  Navigator.pop(context); // Вернуться к списку пользователей
-                },
-                child: const Text(
-                  'Удалить',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
-            ],
-          ),
-    );
-  }
+  showDialog(
+    context: context,
+    builder: (context) => MyConfirmationDialogWidget(
+      title: 'Подтверждение удаления',
+      message: 'Вы уверены, что хотите удалить этого пользователя?',
+      confirmButtonText: 'Удалить',
+      onConfirm: () {
+        context.read<UserManagementBloc>().add(DeleteUserEvent(widget.user.id));
+        Navigator.pop(context); // Дополнительный pop для возврата к списку
+      },
+    ),
+  );
+}
 }

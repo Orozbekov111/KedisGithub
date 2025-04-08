@@ -5,10 +5,12 @@ import 'package:kedis/features2/home/domain/usecases/get_best_students_usecase.d
 part 'get_best_students_event.dart';
 part 'get_best_students_state.dart';
 
-class GetBestStudentsBloc extends Bloc<GetBestStudentsEvent, GetBestStudentsState> {
+class GetBestStudentsBloc
+    extends Bloc<GetBestStudentsEvent, GetBestStudentsState> {
   GetBestStudentsUsecase getBestStudentsUsecase;
 
-  GetBestStudentsBloc({required this.getBestStudentsUsecase}) : super(GetBestStudentsInitialState()) {
+  GetBestStudentsBloc({required this.getBestStudentsUsecase})
+    : super(GetBestStudentsInitialState()) {
     on<LoadBestStudentsEvent>(_onLoadBestStudents);
   }
 

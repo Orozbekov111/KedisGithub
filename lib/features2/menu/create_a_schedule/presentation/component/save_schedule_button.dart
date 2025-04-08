@@ -14,19 +14,19 @@ class SaveScheduleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ScheduleBloc, ScheduleState>(
+    return BlocConsumer<CreateScheduleBloc, CreateScheduleState>(
       listener: (context, state) {
         if (state is ScheduleSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
           Navigator.pop(context);
         }
       },
       builder: (context, state) {
         return ElevatedButton(
           onPressed: () {
-            context.read<ScheduleBloc>().add(
+            context.read<CreateScheduleBloc>().add(
               SaveScheduleEvent(groupId, dayOfWeek),
             );
           },

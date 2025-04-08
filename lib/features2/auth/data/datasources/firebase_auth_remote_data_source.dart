@@ -4,8 +4,6 @@ import 'package:kedis/features2/auth/domain/entities/user_entity.dart';
 class FirebaseAuthRemoteDataSource {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  
-
   Future<UserEntity> login(String email, String password) async {
     final userCredential = await firebaseAuth.signInWithEmailAndPassword(
       email: email,
@@ -13,17 +11,15 @@ class FirebaseAuthRemoteDataSource {
     );
 
     if (userCredential.user == null) {
-      throw Exception('User is null after login');
+      throw Exception('Пользователь имеет значение null после входа в систему');
     }
 
     return UserEntity(
       id: userCredential.user!.uid,
       email: userCredential.user!.email ?? '',
-      fullName: userCredential.user!.displayName ?? 'Unknown',
+      // fullName: userCredential.user!.displayName ?? 'Неизвестный',
     );
   }
-
-
 
   Future<bool> isAuthenticated() async {
     return firebaseAuth.currentUser != null;

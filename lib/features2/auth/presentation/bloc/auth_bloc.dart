@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kedis/features2/auth/domain/entities/user_entity.dart';
-import 'package:kedis/features2/auth/domain/repositories/auth_repository.dart';
 import 'package:kedis/features2/auth/domain/usecases/is_authenticated_usecase.dart';
 import 'package:kedis/features2/auth/domain/usecases/login_usecase.dart';
 import 'package:kedis/features2/auth/presentation/bloc/auth_event.dart';
@@ -9,16 +8,13 @@ import 'package:kedis/features2/auth/presentation/bloc/auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
-  
+
   final IsAuthenticatedUsecase isAuthenticatedUsecase;
 
-  AuthBloc({
-    required this.loginUseCase,
-    
-    required this.isAuthenticatedUsecase,
-  }) : super(AuthInitial()) {
+  AuthBloc({required this.loginUseCase, required this.isAuthenticatedUsecase})
+    : super(AuthInitial()) {
     on<LoginEvent>(_onLoginEvent);
-    
+
     on<CheckAuthEvent>(_onCheckAuthEvent);
   }
 
@@ -32,15 +28,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  
-
-  Future<void> _onCheckAuthEvent(CheckAuthEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onCheckAuthEvent(
+    CheckAuthEvent event,
+    Emitter<AuthState> emit,
+  ) async {
     final isAuthenticated = await isAuthenticatedUsecase.execute();
     if (isAuthenticated) {
       final user = UserEntity(
         id: FirebaseAuth.instance.currentUser!.uid,
         email: FirebaseAuth.instance.currentUser!.email ?? '',
-        fullName: FirebaseAuth.instance.currentUser!.displayName ?? 'Unknown',
+        // fullName: FirebaseAuth.instance.currentUser!.displayName ?? 'Unknown',
       );
       emit(AuthAuthenticated(user: user));
     } else {

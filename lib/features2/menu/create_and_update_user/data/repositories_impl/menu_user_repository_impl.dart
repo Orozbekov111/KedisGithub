@@ -3,32 +3,32 @@ import 'package:kedis/features2/menu/create_and_update_user/data/models/menu_use
 import 'package:kedis/features2/menu/create_and_update_user/domain/repositories/menu_user_repository.dart';
 
 class MenuUserRepositoryImpl implements MenuUserRepository {
-  final MenuFirebaseUserDataSource dataSource;
+  final MenuFirebaseUserDataSource firestoreDataSource;
 
-  MenuUserRepositoryImpl(this.dataSource);
+  MenuUserRepositoryImpl({required this.firestoreDataSource});
 
   @override
   Future<MenuUserModel> getCurrentUser() async {
-    return await dataSource.getCurrentUser();
+    return await firestoreDataSource.getCurrentUser();
   }
 
   @override
   Future<void> createUser(MenuUserModel user) async {
-    await dataSource.createUser(user);
+    await firestoreDataSource.createUser(user);
   }
 
   @override
   Future<List<MenuUserModel>> getAllUsers() async {
-    return await dataSource.getAllUsers();
+    return await firestoreDataSource.getAllUsers();
   }
 
   @override
   Future<void> updateUser(MenuUserModel user) async {
-    await dataSource.updateUser(user);
+    await firestoreDataSource.updateUser(user);
   }
 
   @override
   Future<void> deleteUser(String userId) async {
-    await dataSource.deleteUser(userId);
+    await firestoreDataSource.deleteUser(userId);
   }
 }

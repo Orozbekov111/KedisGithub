@@ -1,14 +1,14 @@
 part of 'schedule_bloc.dart';
 
-abstract class ScheduleEvent extends Equatable {
-  const ScheduleEvent();
+abstract class CreateScheduleEvent extends Equatable {
+  const CreateScheduleEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class AddLessonEvent extends ScheduleEvent {
-  final lessonEntity lesson;
+class AddLessonEvent extends CreateScheduleEvent {
+  final CreateLessonEntity lesson;
 
   const AddLessonEvent(this.lesson);
 
@@ -16,7 +16,7 @@ class AddLessonEvent extends ScheduleEvent {
   List<Object> get props => [lesson];
 }
 
-class SaveScheduleEvent extends ScheduleEvent {
+class SaveScheduleEvent extends CreateScheduleEvent {
   final String groupId;
   final String dayOfWeek;
 
@@ -26,4 +26,4 @@ class SaveScheduleEvent extends ScheduleEvent {
   List<Object> get props => [groupId, dayOfWeek];
 }
 
-class ClearLessonsEvent extends ScheduleEvent {}
+class ClearLessonsEvent extends CreateScheduleEvent {}

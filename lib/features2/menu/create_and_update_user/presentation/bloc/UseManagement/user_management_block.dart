@@ -1,7 +1,6 @@
 // user_management_block.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kedis/features2/menu/create_and_update_user/data/models/menu_user_model.dart';
-import 'package:kedis/features2/menu/create_and_update_user/domain/entities/menu_user_entity.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu_get_all_users_usecase.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu_update_user_usecase.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu_delete_user_usecase.dart';

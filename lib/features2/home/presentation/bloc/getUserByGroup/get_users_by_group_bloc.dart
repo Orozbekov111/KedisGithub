@@ -7,19 +7,18 @@ import 'package:kedis/features2/home/domain/usecases/get_users_by_group_usecase.
 part 'get_users_by_group_event.dart';
 part 'get_users_by_group_state.dart';
 
-
 class GroupUsersBloc extends Bloc<GroupUsersEvent, GroupUsersState> {
   final GetCurrentUserUseCase getCurrentUserUseCase;
   final GetUsersByGroupUseCase getUsersByGroupUseCase;
   String? currentUserGroup;
 
   GroupUsersBloc({
-  required this.getCurrentUserUseCase,
-  required this.getUsersByGroupUseCase,
-}) : super(GroupUsersInitialState()) {
-  on<LoadGroupUsersEvent>(_onLoadGroupUsers);
-  add(LoadGroupUsersEvent());
-}
+    required this.getCurrentUserUseCase,
+    required this.getUsersByGroupUseCase,
+  }) : super(GroupUsersInitialState()) {
+    on<LoadGroupUsersEvent>(_onLoadGroupUsers);
+    add(LoadGroupUsersEvent());
+  }
 
   Future<void> _onLoadGroupUsers(
     LoadGroupUsersEvent event,
@@ -29,18 +28,19 @@ class GroupUsersBloc extends Bloc<GroupUsersEvent, GroupUsersState> {
     try {
       final currentUser = await getCurrentUserUseCase.execute();
       currentUserGroup = currentUser.group;
-      
+
       final allUsers = await getUsersByGroupUseCase.execute(currentUser.group);
-      
+
       // Фильтруем только пользователей из той же группы
-      final sameGroupUsers = allUsers.where(
-        (user) => user.group == currentUserGroup
-      ).toList();
-      
-      emit(GroupUsersLoadedState(
-        users: sameGroupUsers,
-        groupName: currentUser.group
-      ));
+      final sameGroupUsers =
+          allUsers.where((user) => user.group == currentUserGroup).toList();
+
+      emit(
+        GroupUsersLoadedState(
+          users: sameGroupUsers,
+          groupName: currentUser.group,
+        ),
+      );
     } catch (e) {
       emit(GroupUsersErrorState(e.toString()));
     }

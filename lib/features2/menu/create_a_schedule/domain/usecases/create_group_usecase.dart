@@ -3,7 +3,7 @@ import 'package:kedis/features2/menu/create_a_schedule/domain/repositories/creat
 class CreateGroupUsecase {
   final CreateScheduleRepository repository;
 
-  CreateGroupUsecase(this.repository);
+  CreateGroupUsecase({required this.repository});
 
   Future<void> call(String groupId, String groupName) async {
     if (groupName.isEmpty) {

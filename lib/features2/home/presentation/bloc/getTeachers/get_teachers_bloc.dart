@@ -5,11 +5,11 @@ import 'package:kedis/features2/home/domain/usecases/get_teachers_usecase.dart';
 part 'get_teachers_event.dart';
 part 'get_teachers_state.dart';
 
-
 class TeachersBloc extends Bloc<TeachersEvent, TeachersState> {
   final GetTeachersUseCase getTeachersUseCase;
 
-  TeachersBloc({required this.getTeachersUseCase}) : super(TeachersInitialState()) {
+  TeachersBloc({required this.getTeachersUseCase})
+    : super(TeachersInitialState()) {
     on<LoadTeachersEvent>(_onLoadTeachers);
   }
 

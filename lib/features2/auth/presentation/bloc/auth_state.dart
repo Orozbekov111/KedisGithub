@@ -1,4 +1,3 @@
-
 import 'package:kedis/features2/auth/domain/entities/user_entity.dart';
 
 abstract class AuthState {}

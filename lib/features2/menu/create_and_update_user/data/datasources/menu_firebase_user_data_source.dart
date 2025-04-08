@@ -10,10 +10,10 @@ class MenuFirebaseUserDataSource {
     try {
       final user = _auth.currentUser;
       if (user == null) throw Exception('User not authenticated');
-      
+
       final doc = await _firestore.collection('users').doc(user.uid).get();
       if (!doc.exists) throw Exception('User not found');
-      
+
       return MenuUserModel.fromFirestore(doc);
     } catch (e) {
       throw Exception('Failed to get user: ${e.toString()}');
@@ -22,17 +22,14 @@ class MenuFirebaseUserDataSource {
 
   Future<void> createUser(MenuUserModel user) async {
     try {
-      // 1. Создаем пользователя в Firebase Auth
       final userCredential = await _auth.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
-      
-      // 2. Получаем UID из Auth и устанавливаем его как ID
+
       final uid = userCredential.user?.uid;
       if (uid == null) throw Exception('Failed to get user UID');
-      
-      // 3. Сохраняем пользователя в Firestore с правильным ID
+
       await _firestore.collection('users').doc(uid).set({
         'email': user.email,
         'password': user.password, // Обычно пароль не хранят в Firestore
@@ -54,7 +51,9 @@ class MenuFirebaseUserDataSource {
   Future<List<MenuUserModel>> getAllUsers() async {
     try {
       final snapshot = await _firestore.collection('users').get();
-      return snapshot.docs.map((doc) => MenuUserModel.fromFirestore(doc)).toList();
+      return snapshot.docs
+          .map((doc) => MenuUserModel.fromFirestore(doc))
+          .toList();
     } catch (e) {
       throw Exception('Failed to get users: ${e.toString()}');
     }

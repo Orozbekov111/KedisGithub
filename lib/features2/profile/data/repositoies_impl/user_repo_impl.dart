@@ -10,7 +10,7 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<UserEntity> getUser(String userId) async {
     final userModel = await dataSource.getUser(userId);
-    return userModel.toEntity(); // Конвертируем UserModel в UserEntity
+    return userModel.toEntity(); 
   }
 
   @override

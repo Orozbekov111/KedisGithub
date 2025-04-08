@@ -4,7 +4,7 @@ import 'package:kedis/features2/menu/create_and_update_user/domain/repositories/
 class MenuGetCurrentUserUsecase {
   final MenuUserRepository repository;
 
-  MenuGetCurrentUserUsecase(this.repository);
+  MenuGetCurrentUserUsecase({required this.repository});
 
   Future<MenuUserModel> call() async {
     return await repository.getCurrentUser();

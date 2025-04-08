@@ -11,7 +11,7 @@ class TeachersLoadedState extends TeachersState {
   TeachersLoadedState(this.teachers);
 }
 
-class TeachersEmptyState extends TeachersState {} 
+class TeachersEmptyState extends TeachersState {}
 
 class TeachersErrorState extends TeachersState {
   final String message;

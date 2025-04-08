@@ -5,9 +5,11 @@ import 'package:kedis/features2/home/domain/usecases/get_active_students_usercas
 part 'get_active_students_event.dart';
 part 'get_active_students_state.dart';
 
-class GetActiveStudentsBloc extends Bloc<GetActiveStudentsEvent, ActiveStudentsState> {
-final GetActiveStudentsUserCase getActiveStudentsUserCase;
-  GetActiveStudentsBloc({required this.getActiveStudentsUserCase}) : super(ActiveStudentsInitialState()) {
+class GetActiveStudentsBloc
+    extends Bloc<GetActiveStudentsEvent, ActiveStudentsState> {
+  final GetActiveStudentsUserCase getActiveStudentsUserCase;
+  GetActiveStudentsBloc({required this.getActiveStudentsUserCase})
+    : super(ActiveStudentsInitialState()) {
     on<LoadActiveStudentsEvent>(_onLoadActiveStudents);
   }
 

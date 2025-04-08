@@ -10,4 +10,3 @@ class GetTeachersUseCase {
     return await repository.getTeachers();
   }
 }
-

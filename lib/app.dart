@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kedis/core/router/app_router.dart';
@@ -31,8 +29,6 @@ import 'package:kedis/features2/menu/create_a_schedule/data/datasources/create_s
 import 'package:kedis/features2/menu/create_a_schedule/domain/repositories/create_schedule_repository.dart';
 import 'package:kedis/features2/menu/create_a_schedule/domain/usecases/add_schedule_usecase.dart';
 import 'package:kedis/features2/menu/create_a_schedule/domain/usecases/create_group_usecase.dart';
-import 'package:kedis/features2/menu/create_a_schedule/presentation/bloc/group/group_bloc.dart';
-import 'package:kedis/features2/menu/create_a_schedule/presentation/bloc/schedulle/schedule_bloc.dart';
 import 'package:kedis/features2/menu/create_and_update_user/data/datasources/menu_firebase_user_data_source.dart';
 import 'package:kedis/features2/menu/create_and_update_user/data/repositories_impl/menu_user_repository_impl.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/repositories/menu_user_repository.dart';
@@ -41,9 +37,7 @@ import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu
 import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu_get_all_users_usecase.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu_get_current_user_usecase.dart';
 import 'package:kedis/features2/menu/create_and_update_user/domain/usecases/menu_update_user_usecase.dart';
-import 'package:kedis/features2/menu/create_and_update_user/presentation/bloc/CurrentUser/current_user_bloc.dart';
 import 'package:kedis/features2/menu/create_and_update_user/presentation/bloc/UseManagement/user_management_block.dart';
-import 'package:kedis/features2/menu/create_and_update_user/presentation/bloc/UserCreate/user_create_bloc.dart';
 import 'package:kedis/features2/profile/data/repositoies_impl/user_repo_impl.dart';
 import 'package:kedis/features2/profile/domain/repositories/user_repository.dart';
 import 'package:kedis/features2/profile/domain/usecases/change_password_usecase.dart';
@@ -51,14 +45,12 @@ import 'package:kedis/features2/profile/domain/usecases/get_user_usecase.dart';
 import 'package:kedis/features2/profile/domain/usecases/sign_out_usecase.dart';
 import 'package:kedis/features2/profile/presentation/bloc/bloc/user_bloc.dart';
 import 'package:kedis/features2/time/data/datasourses/view_schedule_remote_data_source.dart';
-import 'package:kedis/features2/time/data/repositories_impl/view_schedule_repository_impl.dart';
 import 'package:kedis/features2/time/domain/repositories/view_schedule_repository.dart';
-import 'package:kedis/features2/time/presentation/bloc/bloc/view_schedule_bloc.dart';
-import 'package:kedis/features2/time/presentation/bloc/bloc/view_schedule_event.dart';
+import 'package:kedis/features2/time/domain/usecases/get_schedule_usecase.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'features2/menu/create_a_schedule/data/repositories_impl/create_schedule_repository_impl.dart';
 import 'features2/profile/data/datasources/firebase_user_data_source.dart';
+import 'features2/time/data/repositories_impl/view_schedule_repository_impl.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -107,6 +99,7 @@ class MyApp extends StatelessWidget {
                 dataSource: context.read<FirebaseUserDataSource>(),
               ),
         ),
+        
         Provider<GetUserUseCase>(
           create: (context) => GetUserUseCase(context.read<UserRepository>()),
         ),
@@ -126,8 +119,6 @@ class MyApp extends StatelessWidget {
                 changePasswordUseCase: context.read<ChangePasswordUseCase>(),
               ),
         ),
-
-
 
         // Регистрируем зависимости для домашнего экрана
         Provider<FirebaseGetDataSource>(create: (_) => FirebaseGetDataSource()),
@@ -219,120 +210,112 @@ class MyApp extends StatelessWidget {
         // Для перехода на сайт
         BlocProvider(create: (context) => VisitWebsiteBloc()),
 
-        // Для создания нового пользователя
+        // Для создания нового пользователя и изменения
         Provider<MenuFirebaseUserDataSource>(
           create: (_) => MenuFirebaseUserDataSource(),
         ),
         Provider<MenuUserRepository>(
           create:
               (context) => MenuUserRepositoryImpl(
-                context.read<MenuFirebaseUserDataSource>(),
+                firestoreDataSource: context.read<MenuFirebaseUserDataSource>(),
               ),
         ),
+
+        // UseCase для создания пользователя
         Provider<MenuGetCurrentUserUsecase>(
           create:
-              (context) =>
-                  MenuGetCurrentUserUsecase(context.read<MenuUserRepository>()),
+              (context) => MenuGetCurrentUserUsecase(
+                repository: context.read<MenuUserRepository>(),
+              ),
         ),
         Provider<MenuCreateUserUsecase>(
           create:
-              (context) =>
-                  MenuCreateUserUsecase(context.read<MenuUserRepository>()),
-        ),
-
-        // Блок для получения текущего пользователя
-        BlocProvider(
-          create:
-              (context) => CurrentUserBloc(
-                getCurrentUser: context.read<MenuGetCurrentUserUsecase>(),
-              )..add(GetCurrentUserEvent()), // Загружаем пользователя сразу
-        ),
-        // Блок для создания пользователя
-        BlocProvider(
-          create:
-              (context) => UserCreateBloc(
-                createUser: context.read<MenuCreateUserUsecase>(),
+              (context) => MenuCreateUserUsecase(
+                repository: context.read<MenuUserRepository>(),
               ),
         ),
 
-        // Блок для изменения пользователя
-        BlocProvider(
+        // UseCase для редактирования пользователя
+        Provider<MenuGetAllUsersUsecase>(
           create:
-              (context) => UserManagementBloc(
-                getAllUsers: MenuGetAllUsersUsecase(
-                  MenuUserRepositoryImpl(MenuFirebaseUserDataSource()),
-                ),
-                updateUser: MenuUpdateUserUsecase(
-                  MenuUserRepositoryImpl(MenuFirebaseUserDataSource()),
-                ),
-                deleteUser: MenuDeleteUserUsecase(
-                  MenuUserRepositoryImpl(MenuFirebaseUserDataSource()),
-                ),
-              )..add(LoadUsersEvent()),
-        ),// Блок для создания расписания
-// Data Sources
-Provider<CreateScheduleFirebaseDataSource>(
-  create: (_) => CreateScheduleFirebaseDataSource(),
-),
+              (context) => MenuGetAllUsersUsecase(
+                repository: context.read<MenuUserRepository>(),
+              ),
+        ),
 
-// Repositories
-Provider<CreateScheduleRepository>(
-  create: (context) => CreateScheduleRepositoryImpl(
-    firestoreDataSource: context.read<CreateScheduleFirebaseDataSource>(),
-  ),
-),
+        Provider<MenuUpdateUserUsecase>(
+          create:
+              (context) => MenuUpdateUserUsecase(
+                repository: context.read<MenuUserRepository>(),
+              ),
+        ),
 
-// Use Cases
-Provider<AddScheduleUsecase>(
-  create: (context) => AddScheduleUsecase(
-   context.read<CreateScheduleRepository>(),
-  ),
-),
+        Provider<MenuDeleteUserUsecase>(
+          create:
+              (context) => MenuDeleteUserUsecase(
+                repository: context.read<MenuUserRepository>(),
+              ),
+        ),
 
-Provider<CreateGroupUsecase>(
-  create: (context) => CreateGroupUsecase(
-   context.read<CreateScheduleRepository>(),
-  ),
-),
+        BlocProvider(
+            create: (context) => UserManagementBloc(
+              getAllUsers: context.read<MenuGetAllUsersUsecase>(),
+              updateUser: context.read<MenuUpdateUserUsecase>(),
+              deleteUser: context.read<MenuDeleteUserUsecase>(),
+            )..add(LoadUsersEvent()),
+          ),
 
+        // Блок для создания расписания
+        // Data Sources
+        Provider<CreateScheduleFirebaseDataSource>(
+          create: (_) => CreateScheduleFirebaseDataSource(),
+        ),
 
-// BLoCs
-BlocProvider<GroupBloc>(
-  create: (context) => GroupBloc(
-    createGroup: context.read<CreateGroupUsecase>(),
-  ),
-),
+        // Repository
+        Provider<CreateScheduleRepository>(
+          create:
+              (context) => CreateScheduleRepositoryImpl(
+                firestoreDataSource:
+                    context.read<CreateScheduleFirebaseDataSource>(),
+              ),
+        ),
 
-BlocProvider<ScheduleBloc>(
-  create: (context) => ScheduleBloc(
-    addSchedule: context.read<AddScheduleUsecase>(),
-    groupId: 'default',
-    dayOfWeek: 'monday',
-  ),
-),
+        // UseCase
+        Provider<AddScheduleUsecase>(
+          create:
+              (context) => AddScheduleUsecase(
+                repository: context.read<CreateScheduleRepository>(),
+              ),
+        ),
 
- // Блок для просмотра расписания
+        Provider<CreateGroupUsecase>(
+          create:
+              (context) => CreateGroupUsecase(
+                repository: context.read<CreateScheduleRepository>(),
+              ),
+        ),
+
+        // Блок для просмотра расписания
+        // 1. Data Source
         Provider<ViewScheduleRemoteDataSource>(
           create: (_) => ViewScheduleRemoteDataSource(),
         ),
-        Provider<ViewScheduleRepositoryImpl>(
+
+        // 2. Repository
+        Provider<ScheduleRepository>(
           create:
               (context) => ViewScheduleRepositoryImpl(
-                context.read<ViewScheduleRemoteDataSource>(),
+                remoteDataSource: context.read<ViewScheduleRemoteDataSource>(),
               ),
         ),
 
-        // BlocProvider(
-        //   create:
-        //       (context) =>
-        //           ViewScheduleBloc(context.read<ViewScheduleRepositoryImpl>())
-        //             ..add(ViewLoadScheduleEvent()),
-        // ),
-        BlocProvider(
-  create: (context) => ViewScheduleBloc(
-    repository: context.read<ViewScheduleRepositoryImpl>(),
-    firestore: FirebaseFirestore.instance,
-  )..add(ViewLoadScheduleEvent(),),),
+        // 3. UseCase
+        Provider<GetScheduleUsecase>(
+          create:
+              (context) => GetScheduleUsecase(
+                repository: context.read<ScheduleRepository>(),
+              ),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router.config(), // Используем routerConfig
