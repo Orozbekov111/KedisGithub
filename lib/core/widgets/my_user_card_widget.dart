@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:kedis/features2/home/domain/entities/user_entity.dart';
-import 'package:kedis/features2/home/presentation/compotent/screens/profile_screen.dart';
+import 'package:kedis/features/home/domain/entities/user_entity.dart';
+import 'package:kedis/features/home/presentation/compotent/screens/profile_screen.dart';
 
 class MyUserCardWidget extends StatelessWidget {
   final UserEntity user;

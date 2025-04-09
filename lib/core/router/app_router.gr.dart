@@ -10,19 +10,19 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:kedis/features2/auth/presentation/pages/auth_screen.dart'
+import 'package:kedis/features/auth/presentation/pages/auth_screen.dart'
     as _i3;
-import 'package:kedis/features2/evalution/presentation/pages/evalution_screen.dart'
+import 'package:kedis/features/evalution/presentation/pages/evalution_screen.dart'
     as _i1;
-import 'package:kedis/features2/home/presentation/pages/home_screen.dart'
+import 'package:kedis/features/home/presentation/pages/home_screen.dart'
     as _i2;
-import 'package:kedis/features2/main_screen.dart'
+import 'package:kedis/features/main_screen.dart'
     as _i4;
-import 'package:kedis/features2/menu/menu_screen.dart'
+import 'package:kedis/features/menu/menu_screen.dart'
     as _i5;
-import 'package:kedis/features2/profile/presentation/pages/profile_screen.dart'
+import 'package:kedis/features/profile/presentation/pages/profile_screen.dart'
     as _i6;
-import 'package:kedis/features2/time/presentation/pages/schedule_screen.dart'
+import 'package:kedis/features/time/presentation/pages/schedule_screen.dart'
     as _i7;
 
 /// generated route for
